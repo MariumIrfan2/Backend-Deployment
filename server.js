@@ -1,9 +1,9 @@
 const express = require("express")
-const cors = require("cors")
 const mongoose = require('mongoose')
+const StudentRouter = require("./Router/StudentRouter")
+const cors = require("cors")
 require("dotenv").config();
 
-const StudentRouter = require("./Router/StudentRouter")
 const CourseRouter = require("./Router/CourseRouter")
 const InstituteRouter = require("./Router/InstituteRouter")
 const TeacherRouter = require("./Router/TeacherRouter")
@@ -22,6 +22,10 @@ app.use("/api/institutes", InstituteRouter)
 app.use("/api/teachers", TeacherRouter)
 app.use("/api/users", UserRouter)
 
+app.get("/", (req, res) => {
+    res.send("Server Started");
+});
+
 mongoose
     .connect(process.env.MONGO_URI)
     .then(() => {
@@ -32,5 +36,5 @@ mongoose
         });
     })
     .catch((err) => {
-        console.log("console error", err);
+        console.log(err);
     });
